@@ -4,32 +4,31 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/paulcalimache/go-cv/generate"
+	"github.com/paulcalimache/go-cv/types"
 	"github.com/spf13/cobra"
 )
 
-var cfgFile string
+var format types.Format
 
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
 	Use:   "generate",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Generate a curriculum vitae",
+	Long:  `Generate a curriculum vitae based on the config file pass in flag`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("generate called")
+		data, _ := cmd.Flags().GetString("data")
+		output, _ := cmd.Flags().GetString("output")
+		generate.Generate(data, output, string(format))
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(generateCmd)
 
-	generateCmd.Flags().StringVarP(&cfgFile, "config", "c", "", "Config file")
-	generateCmd.Flags().StringVarP(&cfgFile, "output", "o", "", "Output folder")
-	generateCmd.Flags().StringP("format", "f", "html", "Format of the generated cv (html or pdf)")
+	generateCmd.Flags().StringP("data", "d", "", "data file")
+	generateCmd.Flags().StringP("output", "o", "", "Output directory")
+	generateCmd.Flags().VarP(&format, "format", "f", "Format of the generated cv (html or pdf)")
+
+	generateCmd.MarkFlagsRequiredTogether("data", "output")
 }
