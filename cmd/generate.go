@@ -4,6 +4,8 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"log"
+
 	"github.com/paulcalimache/go-cv/generate"
 	"github.com/paulcalimache/go-cv/types"
 	"github.com/spf13/cobra"
@@ -19,7 +21,10 @@ var generateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		data, _ := cmd.Flags().GetString("data")
 		output, _ := cmd.Flags().GetString("output")
-		generate.Generate(data, output, string(format))
+		err := generate.Generate(data, output, string(format))
+		if err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

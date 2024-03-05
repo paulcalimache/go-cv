@@ -1,15 +1,22 @@
 firstname: Paul
 lastname: CALIMACHE
 job: Software Engineer / DevOps
-# description: ""
-# education:
-#   - timerange:
-#     title:
-#     site:
-# experiences:
-#   - timerange:
-#     title:
-#     company:
-#     description:
-# skills:
-#   - 
+description: I'm looking for a new opportunity in software engineering.
+education:
+  - timerange: 2019 - 2024
+    title: Master of Computer Science
+    institution: Youtube videos
+experiences:
+  - timerange: 2023 - 2024
+    title: Golang Developer
+    company: GoCV
+    description: Building GoCV tool
+skills:
+  - Full-stack development
+  - DevOps
+  - "Workflow: Gitlab / JIRA"
+hobbies:
+  - Programming
+  - Running
+  - Rugby
+
