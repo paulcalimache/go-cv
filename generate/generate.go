@@ -1,9 +1,10 @@
 package generate
 
 import (
-	"fmt"
+	"context"
 	"os"
 
+	"github.com/paulcalimache/go-cv/templates"
 	"github.com/paulcalimache/go-cv/types"
 	"gopkg.in/yaml.v3"
 )
@@ -20,6 +21,12 @@ func Generate(file string, output string, format string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Print(cv.Lastname)
+
+	f, err := os.Create(output)
+	if err != nil {
+		return err
+	}
+	templates.Classic(cv).Render(context.Background(), f)
+
 	return nil
 }
