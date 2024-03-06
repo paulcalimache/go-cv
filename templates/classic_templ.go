@@ -10,7 +10,7 @@ import "context"
 import "io"
 import "bytes"
 
-import "github.com/paulcalimache/go-cv/types"
+import "github.com/paulcalimache/go-cv/pkg/types"
 
 func Classic(cv types.CV) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -203,7 +203,7 @@ func css() templ.Component {
 			templ_7745c5c3_Var11 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n\t@page {\n\t\tsize: A4;\n\t}\n\tbody {\n\t\twidth: 21cm;\n\t\theight: 29.7cm;\n\t\tmargin: 0;\n\t\tdisplay: flex;\n\t\tfont-family: sans-serif;\n\t}\n\t.left-section {\n\t\twidth:30%;\n\t\theight:100%;\n\t\tbackground-color: #558ED5;\n\t}\n\t.right-section {\n\t\twidth:70%;\n\t\theight:100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\trow-gap: 10px;\n\t}\n\t#name {\n\t\ttext-align: center;\n\t\tfont-weight: bold;\n\t\tfont-size: 36px;\n\t}\n\t#job {\n\t\ttext-align: center;\n\t\tfont-size: 16px;\n\t}\n\n\t</style>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n\t@page {\n\t\tsize: A4;\n\t}\n\tbody {\n\t\twidth: 21cm;\n\t\theight: 29.7cm;\n\t\tmargin: 0;\n\t\tdisplay: flex;\n\t\tfont-family: sans-serif;\n\t}\n\t.left-section {\n\t\twidth:30%;\n\t\theight:100%;\n\t\tbackground-color: #558ED5;\n\t}\n\t.right-section {\n\t\twidth:70%;\n\t\theight:100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\trow-gap: 10px;\n\t\tpadding: 10px;\n\t}\n\t#name {\n\t\ttext-align: center;\n\t\tfont-weight: bold;\n\t\tfont-size: 36px;\n\t\tcolor: #174180;\n\t}\n\t#job {\n\t\ttext-align: center;\n\t\tfont-size: 16px;\n\t\tcolor: #558ED5;\n\t}\n\t.line {\n\t\twidth:100%;\n\t\theight: 2px;\n\t\tbackground-color: #558ED5;\n\t}\n\t#education {\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t}\n\n\t</style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

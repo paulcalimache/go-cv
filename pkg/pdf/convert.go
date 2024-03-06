@@ -2,7 +2,6 @@ package pdf
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 
@@ -11,7 +10,6 @@ import (
 )
 
 func ConvertHtmlToPdf(html string) {
-	fmt.Print("test")
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 	if err := chromedp.Run(ctx,

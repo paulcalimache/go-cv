@@ -4,12 +4,12 @@ go 1.22.0
 
 require (
 	github.com/a-h/templ v0.2.598
+	github.com/chromedp/cdproto v0.0.0-20240304214822-eeb3d13057c9
 	github.com/spf13/cobra v1.8.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
-	github.com/chromedp/cdproto v0.0.0-20240304214822-eeb3d13057c9 // indirect
 	github.com/chromedp/sysutil v1.0.0 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
