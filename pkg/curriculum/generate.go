@@ -10,7 +10,9 @@ func (cv *CV) Render(output string, tmplName string) error {
 	slog.Info("Rendering the " + tmplName + " template ...")
 	t := getTemplate(tmplName)
 
-	f, err := os.Create(output)
+	os.MkdirAll(output, os.ModePerm)
+	os.Chdir(output)
+	f, err := os.Create(tmplName + ".html")
 	if err != nil {
 		return err
 	}

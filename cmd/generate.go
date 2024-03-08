@@ -19,7 +19,7 @@ func init() {
 	generateCmd.Flags().StringP("file", "f", "", "Yaml data file")
 	generateCmd.MarkFlagRequired("file")
 
-	generateCmd.Flags().StringP("output", "o", "output.html", "Output directory")
+	generateCmd.Flags().StringP("output", "o", "./output", "Output directory")
 	generateCmd.Flags().StringP("template", "t", "classic", "CV Template to use")
 }
 
@@ -30,7 +30,7 @@ func generate(cmd *cobra.Command, args []string) error {
 
 	cv, err := curriculum.ParseCV(file)
 	if err != nil {
-		return err;
+		return err
 	}
-	return cv.Render(output, templ);
+	return cv.Render(output, templ)
 }
