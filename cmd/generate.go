@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/paulcalimache/go-cv/pkg/cv"
+	"github.com/paulcalimache/go-cv/pkg/curriculum"
 	"github.com/spf13/cobra"
 )
 
@@ -20,16 +20,17 @@ func init() {
 	generateCmd.MarkFlagRequired("file")
 
 	generateCmd.Flags().StringP("output", "o", "output.html", "Output directory")
+	generateCmd.Flags().StringP("template", "t", "classic", "CV Template to use")
 }
 
 func generate(cmd *cobra.Command, args []string) error {
-	file, err := cmd.Flags().GetString("file")
+	file, _ := cmd.Flags().GetString("file")
+	output, _ := cmd.Flags().GetString("output")
+	templ, _ := cmd.Flags().GetString("template")
+
+	cv, err := curriculum.ParseCV(file)
 	if err != nil {
-		return err
+		return err;
 	}
-	output, err := cmd.Flags().GetString("output")
-	if err != nil {
-		return err
-	}
-	return cv.Generate(file, output)
+	return cv.Render(output, templ);
 }

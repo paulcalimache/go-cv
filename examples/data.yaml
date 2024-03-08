@@ -5,12 +5,16 @@ description: I'm looking for a new opportunity in software engineering.
 education:
   - timerange: 2019 - 2024
     title: Master of Computer Science
-    institution: Youtube videos
+    institution: CESI
 experiences:
   - timerange: 2023 - 2024
     title: Golang Developer
     company: GoCV
     description: Building GoCV tool
+  - timerange: 2021 - 2024
+    title: Apprentice Software Engineer
+    company: Thales Alenia Space
+    description: Develop new componant for the 2nd Generation of the Galileo Ground Mission Segment
 skills:
   - Full-stack development
   - DevOps

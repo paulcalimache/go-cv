@@ -53,31 +53,26 @@
         <div class="left-section">
         </div>
         <div class="right-section">
-            <span id="name">Paul CALIMACHE</span>
-            <span id="job">Software Engineer / DevOps</span>
-            <span id="description">I'm looking for a new opportunity in software engineering.</span>
+            <span id="name">{{.Firstname }} {{.Lastname}}</span>
+            <span id="job">{{.Job}}</span>
+            <span id="description">{{.Description}}</span>
             <div class="line"></div>
             <div id="education">
                 <span>EDUCATION</span>
-                
-                <span class="timerange">2019 - 2024</span>
-                <span class="title">Master of Computer Science</span>
-                <span class="institution">CESI</span>
-                
+                {{ range .Education }}
+                <span class="timerange">{{ .Timerange }}</span>
+                <span class="title">{{ .Title }}</span>
+                <span class="institution">{{ .Institution }}</span>
+                {{ end }}
             </div>
             <div id="experiences">
                 <span>Experiences</span>
-                
-                <span class="timerange">2023 - 2024</span>
-                <span class="title">Golang Developer</span>
-                <span class="company">GoCV</span>
-                <span class="description">Building GoCV tool</span>
-                
-                <span class="timerange">2021 - 2024</span>
-                <span class="title">Apprentice Software Engineer</span>
-                <span class="company">Thales Alenia Space</span>
-                <span class="description">Develop new componant for the 2nd Generation of the Galileo Ground Mission Segment</span>
-                
+                {{ range .Experiences }}
+                <span class="timerange">{{ .Timerange }}</span>
+                <span class="title">{{ .Title }}</span>
+                <span class="company">{{ .Company }}</span>
+                <span class="description">{{ .Description }}</span>
+                {{ end }}
             </div>
         </div>
     </body>

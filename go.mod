@@ -3,7 +3,6 @@ module github.com/paulcalimache/go-cv
 go 1.22.0
 
 require (
-	github.com/a-h/templ v0.2.598
 	github.com/chromedp/cdproto v0.0.0-20240304214822-eeb3d13057c9
 	github.com/spf13/cobra v1.8.0
 	gopkg.in/yaml.v3 v3.0.1
