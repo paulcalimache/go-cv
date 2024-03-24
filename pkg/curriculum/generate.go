@@ -5,6 +5,7 @@ import (
 	"context"
 	"log/slog"
 	"os"
+	"sync"
 	"text/template"
 
 	"github.com/chromedp/cdproto/page"
@@ -40,14 +41,33 @@ func saveAsPDF(file bytes.Buffer) error {
 	ctx, cancelCtx := chromedp.NewContext(context.Background())
 	defer cancelCtx()
 
+	var wg sync.WaitGroup
+	wg.Add(1)
+
 	if err := chromedp.Run(ctx,
 		chromedp.Navigate("about:blank"),
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			lctx, cancel := context.WithCancel(ctx)
+			chromedp.ListenTarget(lctx, func(ev interface{}) {
+				if _, ok := ev.(*page.EventLoadEventFired); ok {
+					wg.Done()
+					// remove event listener
+					cancel()
+				}
+			})
+			return nil
+		}),
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			frameTree, err := page.GetFrameTree().Do(ctx)
 			if err != nil {
 				return err
 			}
 			return page.SetDocumentContent(frameTree.Frame.ID, file.String()).Do(ctx)
+		}),
+		// wait for the page.EventLoadEventFired
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			wg.Wait()
+			return nil
 		}),
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			buf, _, err := page.
@@ -59,7 +79,6 @@ func saveAsPDF(file bytes.Buffer) error {
 				WithPaperHeight(11.67).
 				WithPaperWidth(8.27).
 				WithPrintBackground(true).
-				WithPreferCSSPageSize(true).
 				Do(ctx)
 			if err != nil {
 				return err
@@ -75,5 +94,6 @@ func saveAsPDF(file bytes.Buffer) error {
 func getTemplate(tmpl string) *template.Template {
 	tmplFile := tmpl + ".html"
 	tmplPath := "templates/" + tmpl + "/" + tmplFile
-	return template.Must(template.New(tmplFile).ParseFiles(tmplPath))
+	stylePath := "templates/" + tmpl + "/" + "style.html"
+	return template.Must(template.New(tmplFile).ParseFiles(tmplPath, stylePath))
 }

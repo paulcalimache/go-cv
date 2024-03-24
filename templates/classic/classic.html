@@ -3,77 +3,104 @@
     <head>
         <meta charset="UTF-8">
         <title>CV</title>
-        <style>
-            @page {
-                size: A4;
+        {{ template "style.html" .}}
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                    colors: {
+                        primary: '#174180'
+                    }
+                }
+              },
             }
-            body {
-                width: 21cm;
-                height: 29.7cm;
-                margin: 0;
-                display: flex;
-                font-family: sans-serif;
-            }
-            .left-section {
-                width:30%;
-                height:100%;
-                background-color: #558ED5;
-            }
-            .right-section {
-                width:70%;
-                height:100%;
-                display: flex;
-                flex-direction: column;
-                row-gap: 10px;
-                padding: 10px;
-            }
-            #name {
-                text-align: center;
-                font-weight: bold;
-                font-size: 36px;
-                color: #174180;
-            }
-            #job {
-                text-align: center;
-                font-size: 16px;
-                color: #558ED5;
-            }
-            .line {
-                width:100%;
-                height: 2px;
-                background-color: #558ED5;
-            }
-            #education {
-                display: flex;
-                flex-direction: column;
-            }
-        </style>
+          </script>
+        <link rel="preload" as="image" href="{{ .Image }}">
     </head>
     <body>
-        <div class="left-section">
-        </div>
-        <div class="right-section">
-            <span id="name">{{.Firstname }} {{.Lastname}}</span>
-            <span id="job">{{.Job}}</span>
-            <span id="description">{{.Description}}</span>
-            <div class="line"></div>
-            <div id="education">
-                <span>EDUCATION</span>
-                {{ range .Education }}
-                <span class="timerange">{{ .Timerange }}</span>
-                <span class="title">{{ .Title }}</span>
-                <span class="institution">{{ .Institution }}</span>
-                {{ end }}
+        <!-- Left section -->
+        <section class="w-1/4 bg-primary p-3 flex flex-col gap-y-2 text-white">
+            {{ if .Image }}
+            <img src='{{ .Image }}'>
+            {{ end }}
+            {{ if .Contact }}
+            <div class="flex flex-col">
+                <span class="text-l font-bold">CONTACT</span>
+                <div class="w-full h-px bg-white"></div>
+                <span>{{ .Contact.Mail }}</span>
+                <span>{{ .Contact.Phone }}</span>
             </div>
-            <div id="experiences">
-                <span>Experiences</span>
-                {{ range .Experiences }}
-                <span class="timerange">{{ .Timerange }}</span>
-                <span class="title">{{ .Title }}</span>
-                <span class="company">{{ .Company }}</span>
-                <span class="description">{{ .Description }}</span>
-                {{ end }}
+            {{ end }}
+            {{ if .Skills }}
+            <div>
+                <span class="text-l font-bold">SKILLS</span>
+                <div class="w-full h-px bg-white"></div>
+                <ul class="list-disc ml-3">
+                    {{ range .Skills }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
             </div>
-        </div>
+            {{ end }}
+            {{ if .Hobbies }}
+            <div>
+                <span class="text-l font-bold">HOBBIES</span>
+                <div class="w-full h-px bg-white"></div>
+                <ul class="list-disc ml-3">
+                    {{ range .Hobbies }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </section>
+
+        <!-- Right section -->
+        <section class="w-3/4 p-3 flex flex-col gap-y-2">
+
+            <span class="text-center text-3xl font-bold text-primary">{{.Firstname }} {{.Lastname}}</span>
+            <span class="text-center text-xl text-primary">{{.Job}}</span>
+            <span class="text-justify">{{.Description}}</span>
+
+            <!-- EDUCATION -->
+            {{ if .Education }}
+            <div class="w-full h-px bg-primary"></div>
+            <span class="text-l font-bold text-primary">EDUCATION</span>
+            {{ range .Education }}
+            <div class="flex flex-col">
+                <span class="font-bold">{{ .Timerange }}</span>
+                <span class="text-l text-primary font-bold">{{ .Title }}</span>
+                <span class="italic">{{ .Institution }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+
+            <!-- EXPERIENCES -->
+            {{ if .Experiences }}
+            <div class="w-full h-px bg-primary"></div>
+            <span class="text-l font-bold text-primary">EXPERIENCES</span>
+            {{ range .Experiences }}
+            <div class="flex flex-col">
+                <span class="font-bold">{{ .Timerange }}</span>
+                <span class="text-l text-primary font-bold">{{ .Title }}</span>
+                <span class="italic">{{ .Institution }}</span>
+                <span class="font-thin">{{ .Description }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+
+            <!-- EXPERIENCES -->
+            {{ if .Projects }}
+            <div class="w-full h-px bg-primary"></div>
+            <span class="text-l font-bold text-primary">PROJECTS</span>
+            {{ range .Projects }}
+            <div class="flex flex-col">
+                <span class="text-l text-primary font-bold">{{ .Title }}</span>
+                <span class="font-thin">{{ .Description }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+        </section>
     </body>
 </html>

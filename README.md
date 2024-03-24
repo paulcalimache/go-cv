@@ -4,7 +4,9 @@ Curriculum Vitae generator in pdf &amp; html format based from yaml config file
 ## Usage
 
 ```sh
-go run main.go
+go run main.go --help
+
+go run main.go generate -f examples/data.yaml
 ```
 
 ## Cobra
