@@ -1,5 +1,5 @@
-# GoCV
-Curriculum Vitae generator in pdf &amp; html format based from yaml config file
+# Go curriculum
+Curriculum Vitae generator in pdf &amp; html format based from a simple yaml config file
 
 ## Usage
 
@@ -16,10 +16,4 @@ CLI using Cobra and Cobra CLI
 cobra-cli init
 
 cobra-cli add $command
-```
-
-## Templ
-
-```sh
-templ generate
 ```

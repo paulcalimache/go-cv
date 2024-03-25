@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/paulcalimache/go-cv/pkg/curriculum"
+	"github.com/paulcalimache/go-curriculum/internal/curriculum"
 	"github.com/spf13/cobra"
 )
 

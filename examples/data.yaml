@@ -2,7 +2,7 @@ firstname: John
 lastname: DOE
 job: Software Engineer
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lacinia hendrerit feugiat. Vivamus tristique ac diam quis porttitor. Vestibulum malesuada vulputate massa, et fringilla dolor elementum eget. Phasellus lacinia ultrices feugiat. Nulla vulputate malesuada feugiat. Mauris tincidunt ex congue ultricies luctus. Aenean vitae tincidunt lorem. Aenean rutrum nulla sit amet est lacinia tempor. Curabitur malesuada vel quam ac venenatis. Suspendisse potenti. Sed at ipsum euismod, vestibulum libero sit amet, tristique justo. Nullam et dolor iaculis, hendrerit turpis in, consequat elit.
-image: https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
+image: https://st.depositphotos.com/1032561/4414/i/600/depositphotos_44141901-stock-photo-portrait-of-a-handsome-man.jpg
 education:
   - timerange: 2015 - 2020
     title: Master of Computer Science

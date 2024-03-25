@@ -26,8 +26,15 @@ func (cv *CV) Render(output string, tmplName string) error {
 	os.MkdirAll(output, os.ModePerm)
 	os.Chdir(output)
 
-	saveAsHTML(file)
-	saveAsPDF(file)
+	err = saveAsHTML(file)
+	if err != nil {
+		return err
+	}
+
+	err = saveAsPDF(file)
+	if err != nil {
+		return err
+	}
 
 	slog.Info("CV rendered at " + output)
 	return nil
@@ -38,7 +45,7 @@ func saveAsHTML(file bytes.Buffer) error {
 }
 
 func saveAsPDF(file bytes.Buffer) error {
-	ctx, cancelCtx := chromedp.NewContext(context.Background())
+	ctx, cancelCtx := chromedp.NewContext(context.Background(), chromedp.WithLogf(slog.Info))
 	defer cancelCtx()
 
 	var wg sync.WaitGroup
@@ -81,6 +88,7 @@ func saveAsPDF(file bytes.Buffer) error {
 				WithPrintBackground(true).
 				Do(ctx)
 			if err != nil {
+				slog.Debug("test 5")
 				return err
 			}
 			return os.WriteFile("curriculum.pdf", buf, 0644)

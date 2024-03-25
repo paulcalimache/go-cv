@@ -20,9 +20,9 @@
     </head>
     <body>
         <!-- Left section -->
-        <section class="w-1/4 bg-primary p-3 flex flex-col gap-y-2 text-white">
+        <section class="w-1/4 bg-primary p-3 flex flex-col gap-y-4 text-white">
             {{ if .Image }}
-            <img src='{{ .Image }}'>
+            <img src='{{ .Image }}' class="aspect-square clip-circle">
             {{ end }}
             {{ if .Contact }}
             <div class="flex flex-col">
@@ -57,7 +57,7 @@
         </section>
 
         <!-- Right section -->
-        <section class="w-3/4 p-3 flex flex-col gap-y-2">
+        <section class="w-3/4 p-3 flex flex-col gap-y-3">
 
             <span class="text-center text-3xl font-bold text-primary">{{.Firstname }} {{.Lastname}}</span>
             <span class="text-center text-xl text-primary">{{.Job}}</span>

@@ -1,4 +1,4 @@
-module github.com/paulcalimache/go-cv
+module github.com/paulcalimache/go-curriculum
 
 go 1.22.0
 
