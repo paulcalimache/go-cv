@@ -23,8 +23,15 @@ func (cv *CV) Render(output string, tmplName string) error {
 		return err
 	}
 
-	os.MkdirAll(output, os.ModePerm)
-	os.Chdir(output)
+	// Create output directory
+	err = os.MkdirAll(output, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	err = os.Chdir(output)
+	if err != nil {
+		return err
+	}
 
 	err = saveAsHTML(file)
 	if err != nil {

@@ -1,11 +1,12 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/paulcalimache/go-curriculum/internal/curriculum"
 	"github.com/spf13/cobra"
 )
 
-// generateCmd represents the generate command
 var generateCmd = &cobra.Command{
 	Use:   "generate",
 	Short: "Generate a curriculum vitae",
@@ -17,8 +18,10 @@ func init() {
 	rootCmd.AddCommand(generateCmd)
 
 	generateCmd.Flags().StringP("file", "f", "", "Yaml data file")
-	generateCmd.MarkFlagRequired("file")
-
+	err := generateCmd.MarkFlagRequired("file")
+	if err != nil {
+		log.Fatal(err)
+	}
 	generateCmd.Flags().StringP("output", "o", "./output", "Output directory")
 	generateCmd.Flags().StringP("template", "t", "classic", "CV Template to use")
 }
