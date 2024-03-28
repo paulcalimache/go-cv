@@ -1,0 +1,37 @@
+firstname: John
+lastname: DOE
+job: Software Engineer
+description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lacinia hendrerit feugiat. Vivamus tristique ac diam quis porttitor. Vestibulum malesuada vulputate massa, et fringilla dolor elementum eget. Phasellus lacinia ultrices feugiat. Nulla vulputate malesuada feugiat. Mauris tincidunt ex congue ultricies luctus. Aenean vitae tincidunt lorem. Aenean rutrum nulla sit amet est lacinia tempor. Curabitur malesuada vel quam ac venenatis. Suspendisse potenti. Sed at ipsum euismod, vestibulum libero sit amet, tristique justo. Nullam et dolor iaculis, hendrerit turpis in, consequat elit.
+image: https://st.depositphotos.com/1032561/4414/i/600/depositphotos_44141901-stock-photo-portrait-of-a-handsome-man.jpg
+education:
+  - timerange: 2015 - 2020
+    title: Master of Computer Science
+    institution: Lorem Ipsum Faculty - Paris, FRANCE
+experiences:
+  - timerange: 2023 - 2024
+    title: Software Engineer
+    institution: Lorem Ipsum Company - Toulouse, FRANCE
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt, diam facilisis malesuada elementum, nunc neque aliquet nisl, et placerat nulla diam ut turpis.
+  - timerange: 2020 - 2022
+    title: Junior Software Engineer
+    institution: Lorem Ipsum Company - Paris, FRANCE
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt, diam facilisis malesuada elementum, nunc neque aliquet nisl, et placerat nulla diam ut turpis. Sed vitae enim bibendum, pharetra eros eget, convallis massa. Duis quis libero id magna viverra egestas.
+projects:
+  - title: go-curriculum
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lacinia hendrerit feugiat. Vivamus tristique ac diam quis porttitor.
+contact:
+  mail: john.doe@gmail.com
+  phone: +33 6 XX XX XX XX
+skills:
+  - Full-stack development
+  - Golang
+  - JAVA
+  - Python
+  - Kubernetes
+  - CI/CD pipelines
+  - "Workflow: Gitlab / JIRA"
+hobbies:
+  - Programming
+  - Hiking
+  - Running
+  - Rugby

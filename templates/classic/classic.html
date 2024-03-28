@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CV</title>
+        {{ template "style.html" .}}
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                    colors: {
+                        primary: '#174180'
+                    }
+                }
+              },
+            }
+          </script>
+        <link rel="preload" as="image" href="{{ .Image }}">
+    </head>
+    <body>
+        <!-- Left section -->
+        <section class="w-1/4 bg-primary p-3 flex flex-col gap-y-4 text-white">
+            {{ if .Image }}
+            <img src='{{ .Image }}' class="aspect-square clip-circle">
+            {{ end }}
+            {{ if .Contact }}
+            <div class="flex flex-col">
+                <span class="text-l font-bold">CONTACT</span>
+                <div class="w-full h-px bg-white"></div>
+                <span>{{ .Contact.Mail }}</span>
+                <span>{{ .Contact.Phone }}</span>
+            </div>
+            {{ end }}
+            {{ if .Skills }}
+            <div>
+                <span class="text-l font-bold">SKILLS</span>
+                <div class="w-full h-px bg-white"></div>
+                <ul class="list-disc ml-3">
+                    {{ range .Skills }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+            {{ if .Hobbies }}
+            <div>
+                <span class="text-l font-bold">HOBBIES</span>
+                <div class="w-full h-px bg-white"></div>
+                <ul class="list-disc ml-3">
+                    {{ range .Hobbies }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </section>
+
+        <!-- Right section -->
+        <section class="w-3/4 p-3 flex flex-col gap-y-3">
+
+            <span class="text-center text-3xl font-bold text-primary">{{.Firstname }} {{.Lastname}}</span>
+            <span class="text-center text-xl text-primary">{{.Job}}</span>
+            <span class="text-justify">{{.Description}}</span>
+
+            <!-- EDUCATION -->
+            {{ if .Education }}
+            <div class="w-full h-px bg-primary"></div>
+            <span class="text-l font-bold text-primary">EDUCATION</span>
+            {{ range .Education }}
+            <div class="flex flex-col">
+                <span class="font-bold">{{ .Timerange }}</span>
+                <span class="text-l text-primary font-bold">{{ .Title }}</span>
+                <span class="italic">{{ .Institution }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+
+            <!-- EXPERIENCES -->
+            {{ if .Experiences }}
+            <div class="w-full h-px bg-primary"></div>
+            <span class="text-l font-bold text-primary">EXPERIENCES</span>
+            {{ range .Experiences }}
+            <div class="flex flex-col">
+                <span class="font-bold">{{ .Timerange }}</span>
+                <span class="text-l text-primary font-bold">{{ .Title }}</span>
+                <span class="italic">{{ .Institution }}</span>
+                <span class="font-thin">{{ .Description }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+
+            <!-- EXPERIENCES -->
+            {{ if .Projects }}
+            <div class="w-full h-px bg-primary"></div>
+            <span class="text-l font-bold text-primary">PROJECTS</span>
+            {{ range .Projects }}
+            <div class="flex flex-col">
+                <span class="text-l text-primary font-bold">{{ .Title }}</span>
+                <span class="font-thin">{{ .Description }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+        </section>
+    </body>
+</html>
