@@ -1,11 +1,4 @@
-package curriculum
-
-import (
-	"log/slog"
-	"os"
-
-	"gopkg.in/yaml.v3"
-)
+package models
 
 type CV struct {
 	Firstname   string        `yaml:"firstname"`
@@ -42,21 +35,4 @@ type Projects struct {
 type Contact struct {
 	Mail  string `yaml:"mail"`
 	Phone string `yaml:"phone"`
-}
-
-func ParseCV(file string) (*CV, error) {
-	slog.Info("Parsing file " + file + " ...")
-	buf, err := os.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-
-	var cv CV
-
-	err = yaml.Unmarshal(buf, &cv)
-	if err != nil {
-		return nil, err
-	}
-	slog.Info(cv.Firstname + " CV successfully parsed !")
-	return &cv, nil
 }

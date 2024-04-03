@@ -29,11 +29,21 @@ func init() {
 func generate(cmd *cobra.Command, args []string) error {
 	file, _ := cmd.Flags().GetString("file")
 	output, _ := cmd.Flags().GetString("output")
-	templ, _ := cmd.Flags().GetString("template")
+	template, _ := cmd.Flags().GetString("template")
 
-	cv, err := curriculum.ParseCV(file)
+	cv, err := curriculum.ParseFile(file)
 	if err != nil {
 		return err
 	}
-	return cv.Render(output, templ)
+	c, err := curriculum.RenderTemplate(template, cv)
+	if err != nil {
+		return err
+	}
+
+	err = c.SaveAsHTML(output)
+	if err != nil {
+		return err
+	}
+
+	return c.SaveAsPDF(output)
 }

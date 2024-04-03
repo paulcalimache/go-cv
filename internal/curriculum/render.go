@@ -5,53 +5,51 @@ import (
 	"context"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"sync"
 	"text/template"
 
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
+	"github.com/paulcalimache/go-curriculum/internal/models"
 )
 
-func (cv *CV) Render(output string, tmplName string) error {
-	slog.Info("Rendering the " + tmplName + " template ...")
-	t := getTemplate(tmplName)
-
-	var file bytes.Buffer
-
-	err := t.ExecuteTemplate(&file, "classic.html", cv)
-	if err != nil {
-		return err
-	}
-
-	// Create output directory
-	err = os.MkdirAll(output, os.ModePerm)
-	if err != nil {
-		return err
-	}
-	err = os.Chdir(output)
-	if err != nil {
-		return err
-	}
-
-	err = saveAsHTML(file)
-	if err != nil {
-		return err
-	}
-
-	err = saveAsPDF(file)
-	if err != nil {
-		return err
-	}
-
-	slog.Info("CV rendered at " + output)
-	return nil
+type CurriculumFile struct {
+	file bytes.Buffer
 }
 
-func saveAsHTML(file bytes.Buffer) error {
-	return os.WriteFile("curriculum.html", file.Bytes(), 0644)
+func RenderTemplate(tmplName string, cv *models.CV) (*CurriculumFile, error) {
+	tmplFile := tmplName + ".html"
+	tmplPath := "templates/" + tmplName + "/" + tmplFile
+	stylePath := "templates/" + tmplName + "/" + "style.html"
+	tmpl, err := template.New(tmplFile).ParseFiles(tmplPath, stylePath)
+	if err != nil {
+		return nil, err
+	}
+
+	c := &CurriculumFile{}
+
+	err = tmpl.ExecuteTemplate(&c.file, "classic.html", &cv)
+	if err != nil {
+		return nil, err
+	}
+	return c, nil
 }
 
-func saveAsPDF(file bytes.Buffer) error {
+func (c CurriculumFile) SaveAsHTML(output string) error {
+	err := os.MkdirAll(output, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filepath.Join(output, "curriculum.html"), c.file.Bytes(), 0644)
+}
+
+func (c CurriculumFile) SaveAsPDF(output string) error {
+	err := os.MkdirAll(output, os.ModePerm)
+	if err != nil {
+		return err
+	}
+
 	ctx, cancelCtx := chromedp.NewContext(context.Background(), chromedp.WithLogf(slog.Info))
 	defer cancelCtx()
 
@@ -76,7 +74,7 @@ func saveAsPDF(file bytes.Buffer) error {
 			if err != nil {
 				return err
 			}
-			return page.SetDocumentContent(frameTree.Frame.ID, file.String()).Do(ctx)
+			return page.SetDocumentContent(frameTree.Frame.ID, c.file.String()).Do(ctx)
 		}),
 		// wait for the page.EventLoadEventFired
 		chromedp.ActionFunc(func(ctx context.Context) error {
@@ -98,17 +96,10 @@ func saveAsPDF(file bytes.Buffer) error {
 				slog.Debug("test 5")
 				return err
 			}
-			return os.WriteFile("curriculum.pdf", buf, 0644)
+			return os.WriteFile(filepath.Join(output, "curriculum.pdf"), buf, 0644)
 		}),
 	); err != nil {
 		return err
 	}
 	return nil
-}
-
-func getTemplate(tmpl string) *template.Template {
-	tmplFile := tmpl + ".html"
-	tmplPath := "templates/" + tmpl + "/" + tmplFile
-	stylePath := "templates/" + tmpl + "/" + "style.html"
-	return template.Must(template.New(tmplFile).ParseFiles(tmplPath, stylePath))
 }
