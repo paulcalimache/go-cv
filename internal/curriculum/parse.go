@@ -18,8 +18,8 @@ func ParseFile(filePath string) (*models.CV, error) {
 	switch path.Ext(filePath) {
 	case ".yaml", ".yml":
 		return parseYamlFile(buf)
-	case ".json":
-		//TODO
+		// case ".json":
+		// 	TODO
 	}
 	return nil, errors.New(path.Ext(filePath) + " is not a valid file extension")
 }
