@@ -3,9 +3,11 @@ package curriculum
 import (
 	"bytes"
 	"context"
+	"errors"
 	"log/slog"
 	"os"
 	"path/filepath"
+	"slices"
 	"sync"
 	"text/template"
 
@@ -19,6 +21,10 @@ type CurriculumFile struct {
 }
 
 func RenderTemplate(tmplName string, cv *models.CV) (*CurriculumFile, error) {
+	if !slices.Contains(getTemplatesList(), tmplName) {
+		return nil, errors.New("invalid template")
+	}
+
 	tmplFile := tmplName + ".html"
 	tmplPath := "templates/" + tmplName + "/" + tmplFile
 	stylePath := "templates/" + tmplName + "/" + "style.html"
@@ -102,4 +108,8 @@ func (c CurriculumFile) SaveAsPDF(output string) error {
 		return err
 	}
 	return nil
+}
+
+func getTemplatesList() []string {
+	return []string{"classic"}
 }
